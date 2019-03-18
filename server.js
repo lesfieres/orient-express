@@ -13,9 +13,8 @@ app.get('/search', function(req, res) {
   const title = req.query.title;
   const fromPage = req.query.from;
   const toPage = req.query.to;
-  console.log(title, fromPage, toPage)
+
   goodreadsService.search(title, fromPage, toPage).then((books) => {
-    console.log(books.length);
     res.send(books);
   });
 });
