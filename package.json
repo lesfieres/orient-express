@@ -7,6 +7,7 @@
     "api-services": "github:lesfieres/api-services",
     "body-parser": "^1.18.3",
     "cookie-parser": "^1.4.4",
+    "dotenv": "^7.0.0",
     "express": "^4.16.4",
     "multer": "^1.4.1"
   },
