@@ -1,7 +1,10 @@
 const express = require('express');
+const cors = require('cors');
 const app = express();
 const ApiServices = require('api-services');
 const env = require('dotenv');
+
+app.use(cors());
 
 let config = env.config().parsed;
 const goodreadsService = new ApiServices.GoodreadsService(
