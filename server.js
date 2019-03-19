@@ -9,7 +9,7 @@ app.use(cors());
 let config = env.config().parsed;
 const goodreadsService = new ApiServices.GoodreadsService(
   config.GOODREADS_KEY,
-  config.GOODREADS_SECRET
+  config.GOODREADS_SECRET,
 );
 
 app.get('/search', function(req, res) {
@@ -17,7 +17,7 @@ app.get('/search', function(req, res) {
   const fromPage = req.query.from;
   const toPage = req.query.to;
 
-  goodreadsService.search(title, fromPage, toPage).then((books) => {
+  goodreadsService.search(title, fromPage, toPage).then(books => {
     res.send(books);
   });
 });
