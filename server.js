@@ -33,6 +33,14 @@ app.get('/search-movie', function(req, res) {
   });
 });
 
+app.get('/get-movie', function(req, res) {
+  const id = req.query.id;
+
+  ombdService.getMovieInfo(id).then(movie => {
+    res.send(movie);
+  });
+});
+
 const server = app.listen(8081, function() {
   const host = server.address().address;
   const port = server.address().port;
