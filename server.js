@@ -1,10 +1,15 @@
 const express = require('express');
 const cors = require('cors');
 const app = express();
-const {GoodreadsService, OmbdService} = require('api-services');
+const { GoodreadsService, OmbdService } = require('api-services');
 const env = require('dotenv');
+const bodyParser = require('body-parser');
+
+const usersService = require('./users.js');
 
 app.use(cors());
+app.use(bodyParser.json());
+usersService.appendUserEndpoints(app);
 
 let config = env.config().parsed;
 const goodreadsService = new GoodreadsService(
@@ -41,7 +46,7 @@ app.get('/get-movie', function(req, res) {
   });
 });
 
-const server = app.listen(8081, "localhost", function() {
+const server = app.listen(8081, 'localhost', function() {
   const host = server.address().address;
   const port = server.address().port;
 
