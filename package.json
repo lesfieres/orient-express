@@ -12,10 +12,13 @@
     "express": "^4.16.4",
     "multer": "^1.4.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "jest": "^24.7.1",
+    "supertest": "^4.0.2"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "test": "jest --runInBand",
+    "start": "node src/server.js"
   },
   "repository": {
     "type": "git",

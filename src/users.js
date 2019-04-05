@@ -2,10 +2,14 @@ const fs = require('fs');
 const crypto = require('crypto');
 
 let users = {};
-try {
-  const usersFile = fs.readFileSync('users.json');
-  users = JSON.parse(usersFile);
-} catch (_) {}
+const initialize = function() {
+  try {
+    const usersFile = fs.readFileSync('users.json');
+    users = JSON.parse(usersFile);
+  } catch (e) {
+    console.error(e);
+  }
+};
 
 const verifyLoggedUser = (req, res) => {
   let token = req.headers['authorization'];
@@ -34,7 +38,10 @@ const encrypt = data =>
     .update(data)
     .digest('hex');
 
+initialize();
+
 module.exports = {
+  initialize,
   users,
   verifyLoggedUser,
   appendUserEndpoints: function(app) {
