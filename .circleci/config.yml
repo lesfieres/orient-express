@@ -1,0 +1,45 @@
+# Javascript Node CircleCI 2.1 configuration file
+#
+# Check https://circleci.com/docs/2.1/language-javascript/ for more details
+#
+version: 2.1
+executors:
+  orient-express-docker:
+    docker:
+      - image: circleci/node:8
+jobs:
+  build_orient-express:
+    executor: orient-express-docker
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+      - run:
+          name: 'Install dependencies if needed'
+          command: ./.circleci/smart-npm-install.sh
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+      - persist_to_workspace:
+          root: .
+          paths: .
+  test_unit:
+    executor: orient-express-docker
+    working_directory: ~/repo
+    steps:
+      - attach_workspace:
+          at: ~/repo
+      - run:
+          name: 'Run unit tests'
+          command: npm run test
+workflows:
+  version: 2.1
+  build_and_test:
+    jobs:
+      - build_orient-express
+      - test_unit:
+          requires:
+            - build_orient-express
